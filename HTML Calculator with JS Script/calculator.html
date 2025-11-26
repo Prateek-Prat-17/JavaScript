@@ -1,0 +1,282 @@
+<!--
+  Calculator HTML + CSS (single file)
+  - No JavaScript included (layout + styling only)
+  - Copy this file and open in a browser to see the UI.
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Calculator — HTML & CSS only</title>
+    <script src="functionCalculator.js"></script>
+    <script src="testclass.js"></script>
+    <style>
+        :root {
+            --bg: #0f1724;
+            --panel: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+            --accent: #06b6d4;
+            /* teal */
+            --muted: #94a3b8;
+            --key-bg: #0b1220;
+            --key-shadow: rgba(16, 23, 2, 0.7);
+            --glass: rgba(255, 255, 255, 0.04);
+            --radius: 14px;
+            --gap: 10px;
+            --max-width: 420px;
+        }
+
+        /* Reset-ish */
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: radial-gradient(1200px 800px at 10% 10%, rgba(6, 182, 212, 0.06), transparent 8%),
+                radial-gradient(1000px 600px at 90% 90%, rgba(99, 102, 241, 0.035), transparent 8%),
+                var(--bg);
+            color: #e6eef6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .calculator {
+            width: 100%;
+            max-width: var(--max-width);
+            background: var(--panel);
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(6px) saturate(120%);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            box-shadow: 0 6px 18px rgba(6, 182, 212, 0.12), inset 0 -6px 18px rgba(255, 255, 255, 0.03);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            color: #051017;
+            font-size: 18px;
+        }
+
+        .title {
+            font-size: 14px;
+            line-height: 1;
+            color: #dbeafe
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px
+        }
+
+        .display {
+            width: 100%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: inset 0 -6px 14px rgba(2, 6, 23, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            min-height: 72px;
+            gap: 6px;
+        }
+
+        .display .expr {
+            font-size: 13px;
+            color: var(--muted);
+            opacity: 0.9;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .display .value {
+            font-weight: 700;
+            font-size: 28px;
+            color: #f8fafc;
+            letter-spacing: 0.6px;
+        }
+
+        /* keys */
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--gap);
+        }
+
+        button.key {
+            -webkit-tap-highlight-color: transparent;
+            appearance: none;
+            border: 0;
+            outline: 0;
+            padding: 18px 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, var(--key-bg), rgba(255, 255, 255, 0.02));
+            color: #e6eef6;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 8px 18px var(--key-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            user-select: none;
+            transition: transform .08s ease, box-shadow .12s ease, filter .12s;
+        }
+
+        button.key:active {
+            transform: translateY(2px) scale(.996);
+            filter: brightness(.95);
+            box-shadow: 0 4px 10px rgba(2, 6, 23, 0.55);
+        }
+
+        /* special keys */
+        button.operator {
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.12), rgba(6, 182, 212, 0.06));
+            color: #e6f8fb;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        button.equals {
+            grid-column: span 2;
+            /* wide */
+            background: linear-gradient(180deg, #06b6d4, #0ea5b7);
+            color: #031323;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 12px 26px rgba(6, 182, 212, 0.18), inset 0 -6px 18px rgba(255, 255, 255, 0.06);
+        }
+
+        button.clear {
+            background: linear-gradient(180deg, rgba(244, 63, 94, 0.12), rgba(244, 63, 94, 0.06));
+            color: #ffdfe6;
+            font-weight: 700;
+        }
+
+        /* make some keys span 2 columns for a nicer layout */
+        .key.span-2 {
+            grid-column: span 2
+        }
+
+        /* accessibility focus styles */
+        button.key:focus {
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.12), 0 8px 18px var(--key-shadow)
+        }
+
+        /* responsive */
+        @media (max-width:420px) {
+            :root {
+                --max-width: 360px
+            }
+
+            .display .value {
+                font-size: 24px
+            }
+
+            button.key {
+                padding: 14px 10px;
+                font-size: 15px
+            }
+        }
+
+        /* decorative footer */
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <main class="calculator" role="application" aria-label="Calculator UI (no javascript)">
+
+        <div class="header">
+            <div class="brand">
+                <div class="logo">C</div>
+                <div>
+                    <div class="title">CSS Calculator</div>
+                    <div class="subtitle">UI only — no JavaScript</div>
+                </div>
+            </div>
+            <div class="meta" aria-hidden="true">Theme • Compact</div>
+        </div>
+
+        <div class="display" role="textbox" aria-readonly="true" tabindex="0">
+            <div class="expr">/* expression */</div>
+            <div class="value" id="displayValue">0</div>
+        </div>
+
+        <div class="keys" role="group" aria-label="Calculator keys">
+            <button class="key clear" aria-label="clear" onclick="clearAll('AC')">AC</button>
+            <button class="key" aria-label="sqrt" onclick="datasqrt('√')">√</button>
+            <button class="key" aria-label="percent">%</button>
+            <button class="key operator" aria-label="divide" onclick="dataop('/')">÷</button>
+
+            <button class="key" aria-label="seven" onclick="dataKey(7)">7</button>
+            <button class="key" aria-label="eight" onclick="dataKey(8)">8</button>
+            <button class="key" aria-label="nine" onclick="dataKey(9)">9</button>
+            <button class="key operator" aria-label="multiply" onclick="dataop('*')">×</button>
+
+            <button class="key" aria-label="four" onclick="dataKey(4)">4</button>
+            <button class="key" aria-label="five" onclick="dataKey(5)">5</button>
+            <button class="key" aria-label="six" onclick="dataKey(6)">6</button>
+            <button class="key operator" aria-label="minus" onclick="dataop('-')">−</button>
+
+            <button class="key" aria-label="one" onclick="dataKey(1)">1</button>
+            <button class="key" aria-label="two" onclick="dataKey(2)">2</button>
+            <button class="key" aria-label="three" onclick="dataKey(3)">3</button>
+            <button class="key operator" aria-label="plus" onclick="dataop('+')">+</button>
+
+            <button class="key span-2" aria-label="zero" onclick="dataKey(0)">0</button>
+            <button class="key" aria-label="decimal">.</button>
+            <button class="key equals" aria-label="equals" onclick="dataoperate()" >=</button>
+        </div>
+
+        <div class="meta" style="margin-top:18px;">
+            <span>Layout + Styling only</span>
+            <span>Made with ❤️ CSS</span>
+        </div>
+
+    </main>
+</body>
+
+</html>
