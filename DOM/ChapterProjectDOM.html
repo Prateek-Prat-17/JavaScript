@@ -1,0 +1,53 @@
+<html>
+
+
+<body>
+    <div name ="First Div" class="output">
+        <h1>Hello</h1>
+        <div name ="Second Div" class="num1">Test 1</div>
+        <ul>
+            <li id="one">One</li>
+            <li id="one"class="red">Two</li>
+        </ul>
+        <div name ="Third Div" class="num2">Test 2</div>
+            <ul>
+            <li id="two">Three</li>
+            <li id="two">Four</li>
+        </ul>
+            <div name ="Fourth Div" class="num1">Test 3</div>
+            <ul>
+            <li id="one">Five</li>
+            <li id="one">Six</li>
+            </ul>
+        
+            <div name ="Fifth Div" class="num2">Test 4</div>
+                <ul>
+            <li id="two">Seven</li>
+            <li id="two"class="purple">Eight</li>
+            </ul>
+    </div>
+    <script>
+        let updateid = document.querySelector(".output ul");
+        updateid.id = "mainlist";
+        let divs = document.querySelectorAll("div");
+        divs.forEach(div => {
+            console.log(div.tagName);
+        });
+        for(i=0;i<divs.length;i++){
+            divs[i].id = i + 1; //With for loop we assign numeric id's to all Divs
+            if(divs[i].id==="1"){
+                divs[i].style.color = "purple";//For Div id 1 i.e., Hello is Purple
+            } else if(i%2===0) {divs[i].style.color = "blue";//For Even Index of div it is Blue
+        }else divs[i].style.color = "red";//For Odd Index of div it is Red
+    }
+    //To Match the list color with div color we use forEach loop
+    let list = document.querySelectorAll("li");//We store the list 
+    list.forEach(lists => {
+        if (lists.id == "one"){ //All the list id belonging to one will turn red else blue
+        lists.style.color = "red";
+        } else lists.style.color = "blue";
+    });  
+    </script>
+</body>
+
+</html>

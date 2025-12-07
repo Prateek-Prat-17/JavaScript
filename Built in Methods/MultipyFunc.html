@@ -1,0 +1,28 @@
+<html>
+    <body>
+        <div id="num1">Enter Number 1 :<input type = "text" id="num11"></div>
+        <div id="num2">Enter Number 2 :<input type = "text" id="num22"></div>
+        <div id="Result">Result : <span id="resultDiv"></span></div>
+        <button id = "button1" onclick="multiply()">Multiply</button>
+        <script>
+            function multiply(){
+                let x = document.getElementById("num11").value
+                let y = document.getElementById("num22").value
+                if(isNaN(x)){
+                    document.getElementById("resultDiv").innerHTML = "Wrong Input of Number 1";
+                    document.getElementById("resultDiv").style.color = "red"
+                }else if(isNaN(y)){
+                    document.getElementById("resultDiv").innerHTML = "Wrong Input of Number 2";
+                    document.getElementById("resultDiv").style.color = "red"
+                }else if(x<0){
+                    document.getElementById("resultDiv").innerHTML = "Negative Number not allowed in Num1";
+                     document.getElementById("resultDiv").style.color = "red"
+                }else if(y<0){
+                    document.getElementById("resultDiv").innerHTML = "Negative Number not allowed in Num2";
+                     document.getElementById("resultDiv").style.color = "red"
+                }else {document.getElementById("resultDiv").innerHTML = Number(x)*Number(y);
+                    document.getElementById("resultDiv").style.color = "black"}
+            }
+        </script>
+    </body>
+</html>
