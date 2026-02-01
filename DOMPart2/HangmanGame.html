@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hangman Game</title>
+    <style>
+        body{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+        .gameArea {
+            text-align: center;
+            font-size: 2em;
+            
+        }
+
+        .box,
+        .boxD {
+            display: inline-block;
+            padding: 5px;
+            cursor: pointer;
+            border: 1px solid #bbe028;
+            background-color: #bbe028;
+            border-radius: 3px;
+            margin: 5px;
+            padding: 14px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .boxE {
+            display: inline-block;
+            width: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.5em;
+        }
+        .charbox{
+            width: 40px;
+            height: 40px;
+            margin: 10px;
+            border: 1px solid #000000;
+            font-size: 32px;
+            text-align: center;
+            color: #000;
+        }
+        #start {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #00a;
+            background-color: #00a;
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .score, .chances {
+            padding-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gameArea">
+        Score: <span class="score">0</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Chances: <span class="chances">0</span>
+        <div class="puzzle"></div>
+        <div class="letters"></div> 
+    </div>
+    <button id="start" onclick="startgame()">Start New Game</button>
+    <script>
+        let words = prompt("Enter a word");
+        //successCounter keeps track of which letters are guessed, Ex: Apple is the hidden word if A is selected then the first letter 
+        // becomes true for each letter guessed the array becomes true one by one
+        let successCounter = new Array(words.length).fill(false);
+        startBtn = document.getElementById("start");
+        const puzzle = document.querySelector(".puzzle");
+        const letter = document.querySelector(".letters");
+        const score = document.querySelector(".score");
+        const chances = document.querySelector(".chances");
+        let finalScore = 0; //Current Score
+        let totalChances = 0; //Attempts made
+
+        function checker(letter){
+            if(words.includes(letter)) { //Checks if the guessed letter is in the word
+                //To put value inside the input box
+                let indexOfCharacter = words.indexOf(letter);//Finds the first position (index) where the guessed letter appears in the word
+                if(document.querySelectorAll(".charbox")[indexOfCharacter].value != '') {//Select all input boxes checks if the box is already filled (If the box at this position already contains a letter)
+                //Finds the next occurrence of the same letter in the word.First argument in indexOf what to search for and second argument where to start search 
+                    indexOfCharacter = words.indexOf(letter, indexOfCharacter + 1);
+                }
+                //Updates tracking array
+                successCounter[indexOfCharacter] = true; 
+                //Puts the letter in the correct input box
+                document.querySelectorAll(".charbox")[indexOfCharacter].value = letter;
+                console.log(successCounter);
+                finalScore += 2; //Correct guess +2 Points
+                if(!successCounter.includes(false)) { //If no false left then the game is won and score & chances are displayed on the browser
+                    document.querySelector(".gameArea").innerHTML = `You have won the game! Score: ${finalScore} in ${++totalChances} chances & the word is ${words}.`;
+                }
+            } else {
+                finalScore--; //Wrong guess decreases the score by 1 point
+            }
+            score.innerHTML = finalScore; //Update score display
+            chances.innerHTML = ++totalChances; //Increase chance count
+        }
+
+        function startgame() {
+            letter.innerHTML = ""; //Clears old alphabet letters
+            createPuzzle();
+            //Creation of letters from a-z
+            for (let i = 97; i <= 122; i++) {
+                letter.innerHTML += "<button class='box' onclick='checker(event.target.innerHTML)'>"+ String.fromCharCode(i)  +"</button>";
+            }
+        }      
+        //Creates empty boxes
+        function createPuzzle() {
+            puzzle.innerHTML = "";
+            words.split("").forEach((element) => { //Splits word into letters
+                puzzle.innerHTML += `<input type="text" class="charbox" disabled/>` //Inputs disabled user cannot type
+            })
+        }
+
+    </script>
+</body>
+
+</html>

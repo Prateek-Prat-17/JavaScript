@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voting System</title>
+    <style>
+        .incVote {
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+    <div id="message">Voting System</div>
+    <div>
+        <input type="text" id="addFriend">
+        <button type="button" id="addNew" onclick="addCadet()">Add Friend</button>
+    </div>
+    <table border="1" id="output"><tr><th>Sl.No</th><th>Name</th><th>Vote Count</th></tr></table>
+    <script>
+        //We get the input element into an variable
+        const addFriend = document.getElementById("addFriend");
+        //We get the table
+        const htmlTable = document.getElementById("output");
+        //Initializing the index for Sl.No
+        let i=0;
+        //Function to add the names in table with index number and starting the vote count by 0
+        function addCadet(){
+            //The value in the input box stored in variable
+            let val=addFriend.value;
+            //We add a table row starting the index with 1(++i), the name in the input box is stored in 2nd cell, 
+            // Vote count initialized by 0 i,e is string
+            html = `<tr><td>${++i}</td><td class="incVote">${val}</td><td class="voteCount">0</td></tr>`;
+            //The table row is stored in the htmlTable
+            htmlTable.innerHTML += html;
+            //The input box is cleared again after adding a friend to the table
+            addFriend.value = "";
+            //We call the incVote Function
+            incVote();
+        }
+         //We create a function for class .incVote so if we click on the name the vote count increases in the last column
+         function incVote() {
+            //We select all the .incVote values and iterate through each element of Name Values and add event listener
+            //that if we click on the element i.e, name increase the count of the Vote Count Column
+            document.querySelectorAll(".incVote").forEach((element) => element.addEventListener("click", (event)=> {
+                //Using query Selector for .voteCount because when iterating the vote count of that particular name to be increased
+                //We use event.target means exact element clicked, and parentElement refers to the <tr> whole row
+                // and select the .voteCount and store it in variable
+                const voteTd = event.target.parentElement.querySelector(".voteCount");
+                //We convert the vote count from string to Int usingparseInt 
+                //When name is clicked  go to its row find the .voteCount and increase the number by 1
+                voteTd.innerHTML = parseInt(voteTd.innerHTML) + 1;
+            })
+        );
+    }  
+    </script>
+</body>
+</html>

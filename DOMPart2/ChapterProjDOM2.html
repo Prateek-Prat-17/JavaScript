@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Collapsible accordion component</title>
+    <style>
+        .myText.active {
+            display: block;
+        }
+
+        .myText {
+            display: none;
+        }
+
+        .title {
+            font-size: 1.5em;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">Title #1</div>
+        <div class="myText">Just some text #1</div>
+        <div class="title">Title #2</div>
+        <div class="myText">Just some text #2</div>
+        <div class="title">Title #3</div>
+        <div class="myText">Just some text #3</div>
+    </div>
+    <script>
+        //Storing the title
+        const title = document.querySelectorAll(".title");
+        //Storing myText
+        const text = document.querySelectorAll(".myText");
+        //ForEach loop
+        title.forEach(function (title) {
+            //If i click then run the below function
+            title.addEventListener("click", function () {
+                //Mytext is removed from active status i.e., all contents are hidden except title selected; This code can be used 
+                //if we want other titke to be hidden otherwise below code works for single title text but if we click on other
+                //titles it will display the text of that title
+                //text.forEach(function (text1) {
+                //  text1.classList.remove("active");
+                //});
+                //The contents are next sibling so we toggle to active so that only on particular 
+                //title clicked will display its content(myText)
+                nextElement = this.nextElementSibling;
+                nextElement.classList.toggle("active");
+            });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Complete JavaScript Course</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="message">Complete JavaScript Course</div>
+    <div>
+        <input type="text" id="addItem">
+        <input type="button" id="addNew" value="Add to List">
+    </div>
+
+    <div id="output">
+        <h1>Shopping List</h1>
+        <ol id="sList"> </ol>
+    </div>
+    <script>
+        //Grabbing the button element
+        const btn = document.getElementById("addNew");
+        //Storing the input text 
+        const input = document.getElementById("addItem");
+        //Function to create a new element and adding to the innerText of list and appending
+        function addOne(){
+            let list = document.createElement("li");
+            list.innerText = input.value;
+            document.body.appendChild(list);
+            input.value = ""; //Clearing Input
+        } 
+        //Event Listener to the button so every time we type a product it gets added to the list
+        btn.addEventListener("click",addOne);
+    </script>
+</body>
+
+</html>

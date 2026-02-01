@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Practice Exercise 10.3</title>
+</head>
+
+<body>
+  <div id="one">First Div</div>
+  <div id="two">Second Div</div>
+  <div id="three">Third Div</div>
+  <script>
+    const divs = document.getElementsByTagName("div");
+    console.log("Output through .item Method", divs.item(1));
+    console.log("Output through .namedItem Method", divs.namedItem("two"));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <title>Exercise 11.5</title>
+</head>
+<body>
+    <div class="output"></div>
+    <input type="text" name="message" placeholder="Your Message">
+    <button class="btn1">Button 1</button>
+    <button class="btn2">Button 2</button>
+    <div>
+        <button class="btn3">Log</button>
+    </div>
+    <script>
+    //Grabbing all the elements
+     let btn1 = document.querySelector(".btn1");
+     let btn2 = document.querySelector(".btn2");
+     let input = document.querySelector("input");
+     let firstDiv = document.querySelector(".output");
+     //Empty array to store & track all the events
+     let log = [];
+     //Function to track the events
+     function tracking(inputValue,event,className,tagName){
+        //To push the events in empty array log
+        log.push({
+            input : inputValue,
+            eventType : event.type,
+            className : className,
+            tagName : tagName,
+        });
+        //In first div we insert the value of the input box
+        firstDiv.textContent = input.value;
+        //Clears the input box
+        input.value = "";
+        console.log(inputValue,event.type,className,tagName);
+     }
+     //Event Listener with click event we define a function event that runs tracking function
+     btn1.addEventListener("click",function(event){
+        tracking(input.value,event,this.className,this.tagName);
+     })
+      btn2.addEventListener("click",function(event){
+        tracking(input.value,event,this.className,this.tagName);
+     })
+     //We grab the log button and log all the events occurred from button 1 & 2
+     let logBtn = document.querySelector(".btn3");
+     logBtn.onclick = function(){
+        console.log(log);
+     }
+
+    </script>
+</body>
+</html>

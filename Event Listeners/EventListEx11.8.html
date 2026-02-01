@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Event Listener Ex 11.8</title>
+</head>
+
+<body>
+    <div id="output"></div>
+    <input type="text" name="myNum1">
+    <input type="text" name="myNum2">
+    <script>
+        //Grabbing the output & input elements
+        output = document.getElementById("output");
+        inputBox = document.querySelectorAll("input");
+        //ForEach Loop for keydown listener number will be displayed in the output & non-number will not be displayed in output
+        inputBox.forEach(element => {
+            element.addEventListener("keydown", function (event) {
+                if (!isNaN(event.key)) {
+                    output.textContent += event.key;
+                }
+            });
+            //After key is released it will log into the console
+            element.addEventListener("keyup", function (event) {
+                console.log(event.key)
+            });
+            //If the content is pasted it will detect and alert in the console
+            element.addEventListener("paste", function () {
+                console.log("These Numbers were Pasted");
+            });
+
+        })
+        //In keydown numbers or letters can repeat in the output whereas in keyup characters cannot be repeated in output
+    </script>
+</body>
+
+</html>

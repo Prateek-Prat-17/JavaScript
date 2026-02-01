@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+
+<body>
+    <div id="wrapper"></div>
+    <form id="myForm">
+        <input type="text" name="firstName" placeholder="First name" />
+        <input type="text" name="lastName" placeholder="Last name" />
+        <input type="text" name="age" placeholder="Age" />
+        <input type="submit" value="submit" />
+    </form>
+    <div id="allData"></div>
+    <button id="btndata" onclick="show()">Show all Data</button>
+    <script>
+        //Above we have created a form for First Name, Last Name & age and we grab and store them into a variable
+        let form = document.getElementById("myForm");
+        let div = document.getElementById("wrapper");
+        //Div to display the recorded fields
+        let showdata = document.getElementById("allData");
+        //Empty array to push the data
+        let data = [];
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); //Stops from reloading the page
+            let error = false; //Error set to false at beginning
+            //Storing the values in particular variable
+            let first = form.firstName.value; 
+            let last = form.lastName.value;
+            let age = form.age.value;
+            //Error Handling for each field if no data is given
+            if (!first) {
+                div.innerHTML = "First Name Required"
+                console.log("First Name Required");
+                error = true;
+            }
+            if (!last) {
+                div.innerHTML = "Last Name Required"
+                console.log("Last Name Required");
+            }
+            if (!age) {
+                div.innerHTML = "Age Required";
+                console.log("Age Required");
+                error = true;
+            } else if (age < 18) {
+                div.innerHTML = "Not Eligible"
+                console.log("Not Eligible");
+                error = true;
+            }
+            //If there are no error we push the data into the empty array
+            if (!error) {
+                data.push({
+                    firstName: first,
+                    lastName: last,
+                    age: age,
+                })
+            }
+            //We set the input box to empty again after all the values are filled
+            form.firstName.value = "";
+            form.lastName.value = "";
+            form.age.value = "";
+        })
+        //A function to display error if no records are stored & if stored we send it to the showdata div
+        function show() {
+            if (data.length === 0) {
+                showdata.innerHTML = "No records yet";
+            } else
+                showdata.innerHTML = data
+                    .map(item => `First Name : ${item.firstName}, Last Name : ${item.lastName}, Age : ${item.age}`)
+                    .join("<br>");//for creating a new line
+        }
+    </script>
+</body>
+
+</html>

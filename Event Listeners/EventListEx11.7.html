@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Event Listener Ex 11.7</title>
+</head>
+
+<body>
+  <div class="output1">
+  </div>
+  <input type="text" placeholder="First Name" name="first"><br>
+  <input type="text" placeholder="Last Name" name="last"><br>
+  <button onclick="sendInfo()">Submit</button>
+  <script>
+    //We store the output div in a variable where we get the message of First & Last name changed and the welcome Message
+     let output =  document.querySelector(".output1");
+     //First Input value stored in a variable
+     let firstInput = document.querySelector("input[name='first']");
+     //Second Input value stored in a variable
+     let lastInput = document.querySelector("input[name='last']");
+     //Adding event Listener to each input box with event type in console
+      firstInput.addEventListener("change",function(event){
+      output.innerHTML = "First name changed to " + firstInput.value;
+      console.log(event.type);
+     })
+      lastInput.addEventListener("blur",function(event){
+      output.innerHTML = "Last name changed to " + lastInput.value;
+      console.log(event.type);
+     })
+     //Function for the Welcome message with full name
+     function sendInfo(){
+        output.innerHTML = "Welcome " + firstInput.value  + lastInput.value
+     }
+     //on change is triggered when the value is changed and clicked outside
+     //on blur is triggered when the focus is out of the input box
+  </script>
+</body>
+
+</html>

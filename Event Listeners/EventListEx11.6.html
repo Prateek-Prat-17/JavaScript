@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Event Listener Ex 11.6</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 100px;
+            border: 1px solid black
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box" id="box0">Box #1</div>
+        <div class="box" id="box1">Box #2</div>
+        <div class="box" id="box2">Box #3</div>
+        <div class="box" id="box3">Box #4</div>
+    </div>
+    <script> 
+    //Grabbing the container & box elements in separate variables
+        let mainContainer = document.querySelector(".container");
+        let boxes = document.querySelectorAll(".box");
+        for(let i = 0; i < boxes.length; i++){
+            //The below event listener is an bubbling event i.e, inner to outer element
+            boxes[i].addEventListener("click",function(event){
+                console.log(3);
+                console.log(event.target.textContent)
+            })      
+            //The below event listener is an capturing event i.e, outer to inner element with third parameter set as true
+            boxes[i].addEventListener("click",function(event){
+                console.log(2);
+                console.log(event.target.textContent)
+            },true)
+        }
+        //We also add event listener to the container for bubbling & capturing event
+            mainContainer.addEventListener("click",function(event){
+                console.log(4);
+                console.log(event.target.textContent);
+            })
+             mainContainer.addEventListener("click",function(event){
+                console.log(1);
+                console.log(event.target.textContent);
+            },true)
+//Main objective of this exercise is to understand the bubbling & event capturing concept
+//The output by clicking any of the box is that it log the box number we clicked then it also logs the eventin below flow chart
+//1 (Container event capturing)-> 2 (Box event capturing) -> 3 (Box bubble capture) -> 4 (Container bubble capture)
+//Event Capture = Outer to Inner Element; Bubble Capture = inner to outer element
+    </script>
+</body>
+
+</html>

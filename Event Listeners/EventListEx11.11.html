@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Event Listener 11.11</title>
+</head>
+<style>
+    div {
+        background-color: rgb(121, 142, 46);
+        width: 100px;
+        height: 100px;
+        position: absolute;
+    }
+</style>
+
+<body>
+    <button onclick="toTheRight()">Go</button>
+    <div id="block"></div>
+    <script>
+        //x is the position of the block
+        let x = 0;
+        //1 = moving right; -1 = moving left
+        let direction = 1;
+        function toTheRight() {
+            //We grab the block in variable
+            let b = document.getElementById("block");
+            //We store the setInterval timer in interval
+            let interval = setInterval(function () {
+                x += direction;//Logic x = 0 , direction = 1; 0 + 1 = 1 -> Now x is 1 in next run 1 + 1 = 2 and so on until 300px
+                b.style.left = x + "px";
+                if (x >= 300 || x <= 0) {
+                    clearInterval(interval); //this stops the run as it reaches 300 steps
+                    direction *= -1; //this reverses the direction, its like a toggle, if only assigned with -1 it will never move to right
+//Logic 1 x -1 = -1; x = 900 + (-1) = 899 and it keeps running i.e, right to left reverse direction
+                }
+            }, 1)
+        };
+
+    </script>
+</body>
+
+</html>

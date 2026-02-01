@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title>Practice Exercise 10.5 & 10.6</title>
+</head>
+
+<body>
+    <h1 id="one" class="uni2">Using CSS Selector</h1>
+    <p id="two" class="uni2">First Element with P tag</p>
+    <p id="three" class="uni2">Second Element with P tag</p>
+    <div id="four" class="uni2">First Div</div>
+    <div id="five" class="uni2">Second Div</div>
+    <div id="six" class="uni2">Third Div</div>
+    <script>
+        const className = document.querySelector(".uni2");
+        console.log("Output of the first element using querySelector :", className);
+        const className2 = document.querySelectorAll(".uni2");
+        console.log("Output in Array Form", className2);
+        className2.forEach(ele =>
+            console.log(ele)
+        )
+    </script>
+</body>
+
+</html>

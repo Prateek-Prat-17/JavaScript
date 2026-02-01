@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <title>Exercise 11.1</title>
+    <style>
+        .mode{
+            background-color: black;
+            color: whitesmoke;
+        }
+        </style>
+</head>
+
+<body>
+    <h1>Click Anywhere to change mode</h1>
+    <script>
+        let darkmode = false;
+        window.onclick = function (){
+        if (darkmode==false) {
+            document.body.classList.add("mode");
+            console.log("Switch to Dark Mode");
+            darkmode = true;
+        } else{
+            document.body.classList.remove("mode");
+            console.log("Switch to Light Mode");
+            darkmode=false;
+        } 
+    }
+    </script>
+</body>
+
+</html>

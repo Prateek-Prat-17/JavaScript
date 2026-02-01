@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Practice Exercise 10.4</title>
+</head>
+
+<body>
+    <h1 id="one" class="uni">Main Heading</h1>
+    <p id="two" class="uni">1st Line</p>
+    <div id="three" class="uni">2nd Line</div>
+    <script>
+        //Array.from converts collections to Array
+        const uniClass = Array.from(document.getElementsByClassName("uni"));
+        //First Method to console all the elements with Class
+        uniClass.forEach(element => {
+            console.log(element);
+            });
+
+            //Second Method to console all the elements with Class
+            for(const ele of uniClass){
+                console.log(ele);
+            }
+
+
+    </script>
+</body>
+
+</html>

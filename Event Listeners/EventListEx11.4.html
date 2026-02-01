@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Exercise 11.4</title>
+</head>
+
+<body>
+    <div class="exer"></div>
+    <script>
+        //Exercise to test the Mouse Events
+        //Grabbing the Div and giving Dimensions to it with Background Color
+        let box = document.querySelector(".exer");
+        box.textContent = "Hello World";
+        box.style.width = "150px";
+        box.style.height = "150px";
+        box.style.backgroundColor = "palevioletred";
+        //Function to Change Color of the Box and trigger the event to update Color
+        //And Consoling the Color & Which Event Triggered
+        function changecolor(event, color) {
+            console.log(color);
+            console.log(event);
+            event.target.style.backgroundColor = color;
+        }
+        //When mouse is over the Element i.e, Box it Turns Red
+        box.addEventListener("mouseover", e => changecolor(e, "red"));
+        //When mouse click is down it changes to green
+        box.addEventListener("mousedown", e => changecolor(e, "green"));
+        //When mouse click is up it changes to yellow
+        box.addEventListener("mouseup", e => changecolor(e, "yellow"));
+        //When mouse leaves the element it turns to blue
+        box.addEventListener("mouseleave", e => changecolor(e, "blue"));
+
+    </script>
+</body>
+
+</html>

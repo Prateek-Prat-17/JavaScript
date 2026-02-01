@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title>Exercise 11.3</title>
+</head>
+
+<body>
+    <script>
+        //Function to add a Message to console & event object to inspect in console
+        function message(stringValue, event) {
+            console.log(stringValue, event);
+        }
+        //Event Listener Function
+        document.addEventListener("DOMContentLoaded", function (event) {
+            message("Document Ready", event);
+        });
+        //Onload Function basically to test which function works faster
+        window.onload = function (event) {
+            message("Windows Ready", event);
+        }
+
+    </script>
+</body>
+
+</html>

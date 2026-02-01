@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Star Rater</title>
+    <style>
+        .stars ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .star {
+            font-size: 40px;
+            color: #ddd;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .gold {
+            color:gold;
+        }
+
+        .output {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="stars">
+        <li class="star">&#10029;</li>
+        <li class="star">&#10029;</li>
+        <li class="star">&#10029;</li>
+        <li class="star">&#10029;</li>
+        <li class="star">&#10029;</li>
+    </ul>
+    <div id="output"></div>
+    <script>
+        //Storing all the Star & out put div in a variable
+        let stars = document.querySelectorAll(".star");
+        let output = document.getElementById("output");
+        //ForEach loop through each stars and adding value to each star like star 1 value = 1, star 2 value = 2 and so on
+        stars.forEach((star, index) => {
+            star.starValue = index + 1; //to star we add a new property starValue to store the values there
+        })
+        stars.forEach(star => {
+            star.addEventListener("click", starRate);//Making stars clickable
+        })
+        function starRate(event) {
+            rating = event.target.starValue; //After the click the value is stored in rating
+            output.innerHTML = "Rating : " + rating;//We show it in the output telling which rating we chose
+            stars.forEach((star, index) => {
+                if (index < rating) { //Ex : we choose 3 so index 0 < 3, 1 < 3, 2 < 3 these index stars will be filled and other stars colour will be removed
+                    star.classList.add("gold");
+                } else { star.classList.remove("gold") };
+            })
+        }
+
+    </script>
+</body>
+
+</html>

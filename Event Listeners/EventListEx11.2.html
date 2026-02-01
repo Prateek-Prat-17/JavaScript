@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <title>Exercise 11.2</title>
+</head>
+<style>
+    .clickable {
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div>Purple</div>
+    <div>Blue</div>
+    <div>Green</div>
+    <div>Navy</div>
+    <div>Yellow</div>
+    <div>DarkOrange</div>
+
+    <script>
+        let colors = document.querySelectorAll("div");
+        colors.forEach(function (colorDiv) {
+            colorDiv.addEventListener("click", function () {
+                document.body.style.backgroundColor = colorDiv.textContent;
+            })
+        })
+        document.querySelectorAll("div").forEach(div => {
+            div.classList.add("clickable");
+        });
+    </script>
+
+</body>
+
+</html>
