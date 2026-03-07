@@ -1,0 +1,700 @@
+<!DOCTYPE HTML>
+<html lang="en"> <!--Tells the browser page is in English-->
+    <head>
+        <meta charset="UTF-8"/> <!--Ensures Special Characters are Displayed Correctly-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Page looks good on Mobile Phone too rather only Desktop-->
+        <title>Fitness & Nutrition Tracker</title>
+        <style>
+
+           /*Styles the body - the background and font*/
+            body{
+                font-family: Tahoma, sans-serif;  /*sans-serif means letters without Decoractive ending*/
+                background-color: #f0f4f8;
+                padding: 20px;
+                color: #333333;
+            }
+            /* Heading 1 */
+            h1{
+                text-align: center;
+                color: #2c7a4b; 
+            }
+
+            #input-section {
+                background-color: #ffffff;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 30px;
+                border-radius: 12px;
+            }
+
+            label{
+                display: block;
+                margin-top: 15px;
+                font-weight: bold;
+            }
+
+            /* All input boxes & Dropdowns*/
+            input, select{
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                border: 1px solid #cccccc;
+                border-radius: 6px;
+                font-family: Tahoma, sans-serif;
+                box-sizing: border-box;
+            }
+
+            #cal-btn{
+                display: block;
+                width: 100%;
+                margin-top: 20px;
+                padding: 10px;
+                background-color: #2c7a4b;
+                color: #ffffff;
+                font-family: Tahoma, sans-serif;
+                font-size: 16px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            /* Button when hovered*/
+            #cal-btn:hover{
+                background-color: #235f3a;
+            }
+
+            /* Result Section CSS */
+            #result-section{
+                background-color: #ffffff;
+                max-width: 600px;
+                margin: 20px auto;
+                padding: 30px;
+                border-radius: 12px;
+            }
+
+            /* Sub-Heading inside Results */
+            h3{
+                color: #2c7a4b;
+                margin-top: 20px;
+                border-bottom: 1px solid #cccccc;
+                padding-bottom: 5px;
+            }
+
+            /* Each Result line */
+            #result-section p{
+                margin: 8px 0;
+                font-size: 15px;
+            }
+
+            /* Add Meal Button */
+            #meal-btn{
+                display: block;
+                width : 100%;
+                margin-top: 20px;
+                padding: 10px;
+                background-color: #3a86ff;
+                color: #ffffff;
+                font-family: Tahoma, sans-serif;
+                font-size: 16px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            /* Meal Table */
+            #meal-table{
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 15px;
+            }
+
+            /* Table Headers & Cells */
+            #meal-table th, #meal-table td {
+                border: 1px solid #cccccc;
+                padding: 8px;
+                text-align: center;
+                font-size: 14px;
+            }
+
+            #meal-section {
+                background-color: #ffffff;
+                max-width: 600px;
+                margin: 20px auto;
+                padding: 30px;
+                border-radius: 12px;
+            }
+
+            /* Delete button inside table */
+            .delete-btn {
+                background-color: #e63946;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-family: Tahoma, sans-serif;
+            }
+
+            /* Reset Button */
+            #reset-btn {
+                display: block;
+                width: 100%;
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #aaaaaa;
+                color: #ffffff;
+                font-family: Tahoma, sans-serif;
+                font-size: 16px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            /* Warning Message when over Target */
+            .warning-over{
+                background-color: #ffe0e0;
+                color: #c1121f;
+                padding: 10px;
+                border-radius: 6px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            /* Message when under Target */
+            .warning-under{
+                background-color: #e0ffe0;
+                color: #2c7a4b;
+                padding: 10px;
+                border-radius: 6px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            /* Exact Target Message */
+            .warning-exact{
+                background-color: #fff8e0;
+                color: #e6a817;
+                padding: 10px;
+                border-radius: 6px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <h1>Fitness & Nutrition Tracker</h1>
+        <div id="input-section">
+            <h2>Enter Details</h2>
+            <!--Name input-->
+            <label for="name">Your Name:</label>
+            <input type="text" id="name">
+
+            <!--Age input-->
+            <label for="age">Age:</label>
+            <input type="number" id="age">
+
+            <!--Gender Selection-->
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="">--Select Gender--</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+
+            <!--Weight Input-->
+            <label for="weight">Weight in KG:</label>
+            <input type="number" id="weight">
+
+            <!--Height Input-->
+            <label for="height">Height in cm:</label>
+            <input type="number" id="height">
+
+            <!--Activity Level-->
+            <label for="activity">Activity Level :</label>
+            <select id="activity">
+                <option value="">--Select Activity Level--</option>
+                <option value="1.2">Sedentary (Little or No Exercise)</option>
+                <option value="1.375">Little Active (1-3 Days/week)</option>
+                <option value="1.55">Moderately Active (3-5 Days/week)</option>
+                <option value="1.725">Very Active  (6-7 Days/week)</option>
+            </select>
+
+            <!--Goal Selection-->
+            <label for="goal">Your Goal :</label>
+            <select id="goal">
+                <option value="">--Select Your Goal--</option>
+                <option value="loss">Weight Loss</option>
+                <option value="maintain">Maintain Weight</option>
+                <option value="gain">Gain Muscle</option>
+            </select>
+
+            <!--Calculate button-->
+            <button id="cal-btn">Calculate</button>
+
+            <!--Reset button-->
+            <button id="reset-btn">Reset Everything</button>
+
+        </div>
+
+        <!--Result Section - Will be shown after Calculation-->
+        <div id="result-section" style="display:none">
+            <h2>Your Results</h2>
+
+            <!--Greetings-->
+            <p id="greetings"></p>
+
+            <!--BMI Results-->
+            <h3>BMI Results</h3>
+            <p id="bmi-result"></p>
+            <p id="bmi-category"></p>
+
+            <!--Calories Result-->
+            <h3>Daily Calories</h3>
+            <p id="bmr-result"></p>
+            <p id="dailyCalories-result"></p>
+            <p id="targetCalories-result"></p>
+
+             <!--Macro Nutrients Result-->
+            <h3>Daily Macronutrients</h3>
+            <p id="protein-result"></p>
+            <p id="carbs-result"></p>
+            <p id="fat-result"></p>
+
+        </div>
+
+        <!--Meal Logger-->
+        <div id="meal-section" style="display:none">
+            <h2>Daily Meal Logger</h2>
+
+            <!--Area to Add Meal-->
+            <label for="meal-name">Food Item :</label>
+            <input type="text" id="meal-name" placeholder="E.g. Chicken, Lentils, Pulses"/>
+
+            <label for="meal-calories">Calories Kcal :</label>
+            <input type="number" id="meal-calories" placeholder="How much Kcal does Food Item Contain ?"/>
+
+            <label for="meal-protein">Protein (g) :</label>
+            <input type="number" id="meal-protein" placeholder="How much Protein does Food Item Contain ?"/>
+
+            <label for="meal-carbs">Carbs (g) :</label>
+            <input type="number" id="meal-carbs" placeholder="How much Carbs does Food Item Contain ?"/>
+
+            <label for="meal-fat">Fat (g) :</label>
+            <input type="number" id="meal-fat" placeholder="How much Fat does Food Item Contain ?"/>
+
+            <!--Add Meal Button-->
+            <button id="meal-btn">Add Meal</button>
+
+            <!--Table to show all Logged Meals-->
+
+            <h3>Logged Meals</h3>
+            <table id="meal-table">
+                <thead>
+                    <tr>
+                        <th>Food</th>
+                        <th>Calories</th>
+                        <th>Protein</th>
+                        <th>Carbs</th>
+                        <th>Fat</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="meal-tbody">
+                    <!--Meal will be added here by JavaScript-->
+
+                </tbody>
+            </table>
+
+            <!--Daily Totals-->
+            <h3>Daily Totals</h3>
+            <p id="total-calories-display"></p>
+            <p id="total-protein-display"></p>
+            <p id="total-carbs-display"></p>
+            <p id="total-fat-display"></p> 
+
+            <!--Remaining Target-->
+            <h3>Remaining to Hit your Target</h3>
+            <p id="remaining-calories-display"></p>
+            <p id="remaining-protein-display"></p>
+            <p id="remaining-carbs-display"></p>
+            <p id="remaining-fat-display"></p>
+
+            <!--Warning Message based on calorie status-->
+            <p id="calorie-warning"></p>
+
+        </div>
+
+
+        <script>
+            //Global Variables - accessible by all functions
+            let targetCalorie = 0;
+            let protein = 0;
+            let carbs = 0;
+            let fat = 0;
+
+            //Grabbing the button
+            let calbtn = document.getElementById("cal-btn");
+
+            calbtn.addEventListener("click",function(){
+                let name = document.getElementById("name").value;
+                let age = document.getElementById("age").value;
+                let gender = document.getElementById("gender").value;
+                let weight = document.getElementById("weight").value;
+                let height = document.getElementById("height").value;
+                let activity = document.getElementById("activity").value;
+                let goal = document.getElementById("goal").value;
+
+                //Error Alert if some field is missing values
+                if(name===""||age===""||weight===""||height===""||gender===""||activity===""||goal===""){
+                    alert("Please fill in the Mandatory Details");
+                    return;
+                }
+
+                //Check age, weight, height are positive numbers
+                if(age <=0 || height<=0 ||weight<=0){
+                    alert("Age, Weight & Height must be greater than zero");
+                    return;
+                }
+
+                //Convert Age, Weight, Height to real Numbers
+                age = parseFloat(age);
+                weight = parseFloat(weight);
+                height = parseFloat(height);
+
+                //BMI(Body Mass Index) Calculation
+                //Formula: Weight in Kg divided by Height in Meters Squared; We divide Height by 100 to convert to meters
+                let heightMtrs = height/100;
+                let bmi = weight/(heightMtrs*heightMtrs);
+
+                //Rounding BMI to 1 Decimal place
+                bmi = bmi.toFixed(1);
+                
+                let bmiCategory;
+                if (bmi<18.5){
+                    bmiCategory = "Underweight";
+                }else if (bmi<25){
+                    bmiCategory = "Normal Weight";
+                }else if(bmi<30){
+                    bmiCategory = "Overweight";
+                }else {
+                    bmiCategory = "Obese";
+                }
+
+                //BMR (Basal Metabolic Rate)
+                //BMR = How many calories your body needs at complete rest, Different formula for Male & Female (Mifflin St Jeor Formula)
+                let bmr;
+
+                //Male Formula
+                if(gender === "male"){
+                    bmr = (10*weight) + (6.25*height) - (5*age) + 5;
+                }else {
+                    bmr = (10*weight) + (6.25*height) - (5*age) - 161;
+                }
+                bmr = Math.round(bmr)//Rounding BMR to whole number
+
+                //Daily Calories
+                //Multiply BMR by activity level to get daily calorie needs; Activity variable already holds the Multiplier(E.g : 1.2, 1.375 etc)
+                let activityMulti = parseFloat(activity);
+                let dailyCalories = Math.round(bmr*activityMulti);
+
+                //Adjust Calorie based on Goal
+                if(goal==="loss") {
+                    //Eat 500 less calories to lose weight
+                    targetCalorie = dailyCalories - 500;
+                } else if (goal==="maintain") {
+                    //Eat Exactly what you burn
+                    targetCalorie = dailyCalories;
+                } else{
+                    //Eat 500 more calories to Gain
+                    targetCalorie = dailyCalories + 500;
+                }
+
+                //Calculate Protein, Carbs and Fat targets in Gram
+                //Protein : 2g per kg of body weight
+                //Fat : 25% of Total Calories each gram of Fat = 9g of Calories
+                //Carbs : Remaining calories , each gram of carbs = 4g of Calories
+                protein = Math.round(weight*2);
+                fat = Math.round((targetCalorie*0.25)/9);
+                carbs = Math.round((targetCalorie-(protein*4) - (fat*9))/4);
+
+            //Display Results on Page
+            //Display Section is hidden with display:none, we make it visible
+            let resultSection = document.getElementById("result-section");
+            resultSection.style.display = "block";
+
+            //Fill each pargraph with values
+            document.getElementById("greetings").innerHTML = 
+            "Hello "+ name + "! Here are your personalized Results";
+
+            document.getElementById("bmi-result").innerHTML = 
+            "Your BMI:<strong> "+ bmi + "</strong>";
+
+            document.getElementById("bmi-category").innerHTML = 
+            "Category: <strong> " + bmiCategory + "</strong>";
+
+            document.getElementById("bmr-result").innerHTML = 
+            "Your BMR (Calories at rest): <strong> " + bmr + " kcal</strong>";
+
+            document.getElementById("dailyCalories-result").innerHTML = 
+            "Your Daily Calories Burn : <strong> " + dailyCalories + " kcal</strong>";
+
+            document.getElementById("targetCalories-result").innerHTML = 
+            "Your Target Calories (" + goal +"): <strong> " + targetCalorie + " kcal</strong>";
+
+            document.getElementById("protein-result").innerHTML = 
+            "Protein Intake : <strong> " + protein + "g</strong> per day";
+
+            document.getElementById("carbs-result").innerHTML = 
+            "Carbs: <strong> " + carbs + "g</strong> per day";
+
+            document.getElementById("fat-result").innerHTML = 
+            "Fat: <strong> " + fat + "g</strong> per day";
+            
+            // Show the meal logger section
+            document.getElementById("meal-section").style.display = "block";
+
+            })
+
+
+            //Meal Logger
+            //Array to store all the meals the user adds
+            let meals = [];
+
+            // The Variables Track running Totas
+            let totalCalories = 0;
+            let totalProtein = 0;
+            let totalCarbs = 0;
+            let totalFat = 0;
+            
+            //Grabbing the add meal button
+            let mealBtn = document.getElementById("meal-btn");
+
+            //EventListener for meal button
+            mealBtn.addEventListener("click",function(){
+
+                //Meal Input Values
+                let mealName = document.getElementById("meal-name").value;
+                let mealCalories = parseFloat(document.getElementById("meal-calories").value);
+                let mealProtein = parseFloat(document.getElementById("meal-protein").value);
+                let mealCarbs = parseFloat(document.getElementById("meal-carbs").value);
+                let mealFat = parseFloat(document.getElementById("meal-fat").value);
+
+                //Validating Meal Inupts
+                if(mealName === ""){
+                    alert("Please enter a Food Name");
+                    return;
+                }
+
+                if(isNaN(mealCalories) || isNaN(mealProtein) || isNaN(mealCarbs) || isNaN(mealFat)){
+                    alert("Please Enter Valid Numbers for Nutrition Values")
+                    return;
+                }
+
+                //Create a meal object to store all details together
+                let meal ={
+                    name : mealName,
+                    calories : mealCalories,
+                    protein : mealProtein,
+                    carbs : mealCarbs,
+                    fat : mealFat,
+                }
+
+                //Adding Meal to empty array (Meals)
+                meals.push(meal);
+
+                totalCalories += mealCalories;
+                totalProtein  += mealProtein;
+                totalCarbs    += mealCarbs;
+                totalFat      += mealFat;
+
+                // Add meal row to the table
+                addMealToTable(meal, meals.length - 1);
+
+                //Update totals display
+                updateTotals();
+
+                //Clearing Input fields after adding
+                document.getElementById("meal-name").value = "";
+                document.getElementById("meal-calories").value = "";
+                document.getElementById("meal-protein").value = "";
+                document.getElementById("meal-carbs").value = "";
+                document.getElementById("meal-fat").value = "";
+
+            })
+
+            // Function: Add meal row to table
+            function addMealToTable(meal,index){
+                //Grabbing Table Body where row goes
+                let tbody = document.getElementById("meal-tbody");
+
+                //Create a new table row element
+                let row = document.createElement("tr");
+
+                //Give row an id so we can find and delete it later
+                row.id = "meal-row-" + index;
+
+                //Fill the row with meal data & adding delete button
+                row.innerHTML = 
+                 "<td>" + meal.name + "</td>" +
+                 "<td>" + meal.calories + "</td>" +
+                 "<td>" + meal.protein + "g</td>" +
+                 "<td>" + meal.carbs + "g</td>" +
+                 "<td>" + meal.fat + "g</td>" +
+                 "<td><button class='delete-btn' onclick='deleteMeal("+ index +")'>Delete</button></td>"
+
+                 //Add row to the table
+                 tbody.appendChild(row);
+
+            }
+
+            //Function : Delete a meal
+            function deleteMeal(index){
+
+                //Subtract this meal's values from totals
+                totalCalories -= meals[index].calories;
+                totalProtein -= meals[index].protein;
+                totalCarbs -= meals[index].carbs;
+                totalFat -= meals[index].fat;
+                
+                //Remove the meal from our array
+                meals[index] = null;
+
+                //Remove the row from the table
+                let row = document.getElementById("meal-row-" + index);
+                row.remove();
+
+                //Update Totals Display
+                updateTotals();
+
+            }
+
+            //Function : Update total displays
+            function updateTotals(){
+
+                //Update total displays
+                document.getElementById("total-calories-display").innerHTML = 
+                "Total Calories: <strong>" + totalCalories.toFixed(1) + " Kcal</strong>"
+
+                document.getElementById("total-protein-display").innerHTML = 
+                "Total Protein: <strong>" + totalProtein.toFixed(1) + " g</strong>"
+
+                document.getElementById("total-carbs-display").innerHTML = 
+                "Total Carbs: <strong>" + totalCarbs.toFixed(1) + " g</strong>"
+
+                document.getElementById("total-fat-display").innerHTML = 
+                "Total Fat: <strong>" + totalFat.toFixed(1) + " g</strong>"
+
+                //Calculate remaining targets
+                let remainingCalories = targetCalorie - totalCalories;
+                let remainingProtein = protein - totalProtein;
+                let remainingCarbs = carbs - totalCarbs;
+                let remainingFat = fat - totalFat;
+
+                //Update Remaining displays
+                document.getElementById("remaining-calories-display").innerHTML = 
+                "Calories Remaining: <strong>" + remainingCalories.toFixed(1) + " kcal</strong>"
+
+                document.getElementById("remaining-protein-display").innerHTML = 
+                "Protein Remaining: <strong>" + remainingProtein.toFixed(1) + "g</strong>"
+
+                document.getElementById("remaining-carbs-display").innerHTML = 
+                "Carbs Remaining: <strong>" + remainingCarbs.toFixed(1) + "g</strong>"
+
+                document.getElementById("remaining-fat-display").innerHTML = 
+                "Fat Remaining: <strong>" + remainingFat.toFixed(1) + "g</strong>"
+
+            //Over & Under Target Warning
+
+            //Grabbing the warning paragraph element
+            let warningBox = document.getElementById("calorie-warning");
+
+            //Calculate how many calories remain
+            let calorieBalance = targetCalorie - totalCalories;
+
+            //Check calorie balance & show appropriate message
+            if(totalCalories === 0){
+                //No meals logged yet - show nothing
+                warningBox.innerHTML = "";
+                warningBox.className = "";
+            } else if(calorieBalance < -100){
+                //User has eaten more than 100 calories over target
+                warningBox.innerHTML = "⚠️ You have exceeded your calorie target by " + Math.abs(calorieBalance).toFixed(0) +
+                " kcal! Consider lighter Meals!"
+                warningBox.className = "warning-over";
+                
+            } else if(calorieBalance > 100){
+                //User still has Calories left to consume
+                warningBox.innerHTML = "✅ You are within your target! " + Math.abs(calorieBalance).toFixed(0) +
+                " kcal remaining for today!"
+                warningBox.className = "warning-under";
+    
+            } else {
+                //User is within the Target
+                warningBox.innerHTML = "🎯 Perfect! You have hit your daily calorie target! ";
+                warningBox.className = "warning-exact";
+            }
+
+        }
+
+            //Reset Button
+            let resetBtn = document.getElementById("reset-btn");
+            
+            resetBtn.addEventListener("click",function(){
+
+                //Confirm before Resetting
+                let confirmed = confirm("Are you sure yo want to reset everything ?");
+
+                //If user clicks cancel stop here
+                if(confirmed === false){
+                    return;
+                }
+
+                //Reset all input fields back to empty
+                document.getElementById("name").value = "";
+                document.getElementById("age").value = "";
+                document.getElementById("gender").value = "";
+                document.getElementById("height").value = "";
+                document.getElementById("weight").value = "";
+                document.getElementById("activity").value = "";
+                document.getElementById("goal").value = "";
+
+                //Hiding meal & result section
+                document.getElementById("result-section").style.display = "none";
+                document.getElementById("meal-section").style.display = "none";
+
+                //Reset Global Variables to zero
+                targetCalorie = 0;
+                protein = 0;
+                carbs = 0;
+                fat = 0;
+
+                //Reset meal totals back to zero
+                totalCalories = 0;
+                totalProtein = 0;
+                totalCarbs = 0;
+                totalFat = 0;
+                
+                //Clear meal table rows
+                document.getElementById("meal-tbody").innerHTML = "";
+
+                //Clear totals display
+                document.getElementById("total-calories-display").innerHTML = "";
+                document.getElementById("total-protein-display").innerHTML = "";
+                document.getElementById("total-carbs-display").innerHTML = "";
+                document.getElementById("total-fat-display").innerHTML = "";
+                document.getElementById("remaining-calories-display").innerHTML = "";
+                document.getElementById("remaining-protein-display").innerHTML = "";
+                document.getElementById("remaining-carbs-display").innerHTML = "";
+                document.getElementById("remaining-fat-display").innerHTML = "";
+
+                //Clearing Warning Messages on Reset
+                document.getElementById("calorie-warning").innerHTML = "";
+                document.getElementById("calorie-warning").className = "";
+            })
+
+        </script>
+
+    </body>
+</html>
